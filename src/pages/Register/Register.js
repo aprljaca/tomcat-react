@@ -31,8 +31,7 @@ const Register = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("korisnik registrovan uspjesno");
-          //odvodi na login stranicu
+          window.location.href = "login";
         } else {
           console.log(response.statusText);
         }
