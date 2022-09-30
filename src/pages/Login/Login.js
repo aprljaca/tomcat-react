@@ -27,16 +27,24 @@ const Login = () => {
       body: JSON.stringify(requestBody),
     })
       .then((response) => {
-        if (response.status == 200)
+        if (response.status == 200) {
           return Promise.all([response.json(), response.headers]);
-        else return Promise.reject("Invalid login");
+        } else {
+          console.log(response.json());
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
       })
       .then(([body, headers]) => {
         setJwt(headers.get("authorization"));
         window.location.href = "home";
       })
-      .catch((message) => {
-        alert(message);
+      .catch((error) => {
+        console.log(error.message);
+        alert(error.message);
       });
   }
 
@@ -58,6 +66,7 @@ const Login = () => {
               onChange={(event) => setUsername(event.target.value)}
             />
             <input
+              type="password"
               placeholder="Password"
               className="loginInput"
               value={password}
@@ -70,7 +79,12 @@ const Login = () => {
             >
               Log In
             </button>
-            <span className="loginForgot">Forgot Password?</span>
+            <a
+              className="loginForgot"
+              href="http://localhost:3000/forgotPassword"
+            >
+              <span>Forgot Password?</span>
+            </a>
             <button
               className="loginRegisterButton"
               type="button"

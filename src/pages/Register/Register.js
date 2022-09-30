@@ -30,15 +30,19 @@ const Register = () => {
       body: JSON.stringify(requestBody),
     })
       .then((response) => {
-        if (response.ok) {
+        if (response.status == 200) {
           window.location.href = "login";
         } else {
-          console.log(response.statusText);
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
         }
-        //response.json(); kad imamo povratni json objekat sa bekenda i nakon toga treba i drugi then
       })
-      .catch((message) => {
-        alert(message);
+      .catch((error) => {
+        console.log(error.message);
+        alert(error.message);
       });
   }
 
@@ -78,6 +82,7 @@ const Register = () => {
               onChange={(event) => setEmail(event.target.value)}
             />
             <input
+              type="password"
               placeholder="Password"
               className="registerInput"
               value={password}

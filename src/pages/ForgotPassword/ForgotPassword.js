@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import "./forgotPassword.css";
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+
+  function sendResetPasswordRequest() {
+    const requestBody = {
+      email: email,
+    };
+
+    fetch("v1/resetPassword", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "post",
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (response.status == 200) {
+          window.location.href = "savePassword";
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        alert(error.message);
+      });
+  }
+
   return (
     <div className="forgot">
       <div className="forgotWrapper">
@@ -18,13 +49,13 @@ const ForgotPassword = () => {
             <input
               placeholder="Email"
               className="forgotInput"
-              //value={username}
-              //onChange={(event) => setUsername(event.target.value)}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
             <button
               className="forgotButton"
               type="button"
-              //onClick={() => sendLoginRequest()}
+              onClick={() => sendResetPasswordRequest()}
             >
               Send email
             </button>
