@@ -30,7 +30,6 @@ const Login = () => {
         if (response.status == 200) {
           return Promise.all([response.json(), response.headers]);
         } else {
-          console.log(response.json());
           var error = new Error(
             "Error " + response.status + ": " + response.statusText
           );
@@ -43,10 +42,11 @@ const Login = () => {
         window.location.href = "home";
       })
       .catch((error) => {
-        console.log(error.message);
         alert(error.message);
       });
   }
+  
+
 
   return (
     <div className="login">

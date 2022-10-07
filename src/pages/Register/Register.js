@@ -30,7 +30,7 @@ const Register = () => {
       body: JSON.stringify(requestBody),
     })
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status == 201) {
           window.location.href = "login";
         } else {
           var error = new Error(
