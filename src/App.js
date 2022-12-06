@@ -6,6 +6,7 @@ import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import SavePassword from "./pages/SavePassword/SavePassword";
 import Profile from "./pages/Profile/Profile";
+import Settings from "./pages/Settings/Settings";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/savePassword/token=:token" element={<SavePassword />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }

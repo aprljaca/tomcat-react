@@ -11,9 +11,11 @@ const Profile = () => {
   const params = useParams();
 
   const [jwt, setJwt] = useLocalState("", "jwt");
-  const [firstName, setFirstname] = useState("1");
+  const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
   const [userName, setUsername] = useState("");
+
+  const [posts, setPosts] = useState("");
 
   function getProfileInformation() {
     fetch("/v1/profileInformationData?userId="+ params.userId, {
@@ -64,8 +66,8 @@ const Profile = () => {
       }
     })
     .then(([body]) => {
-      console.log(body);
-      
+      setPosts(body);
+      console.log(body)
     })
     .catch((error) => {
       alert(error.message);
@@ -94,7 +96,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="profileRightBottom">
-            <Feed />
+            <Feed posts={posts}/>
           </div>
 
         </div>
