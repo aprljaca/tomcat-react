@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import Post from "../post/Post";
-import Share from "../share/Share";
 import "./feed.css";
 
-const Feed = ({posts}) => {
+const ProfileFeed = ({posts}) => {
   var obj = posts;
   var result = Object.keys(obj).map((key) => [Number(key), obj[key]]);
 
@@ -11,7 +10,6 @@ const Feed = ({posts}) => {
     return (
         <div className="feed">
           <div className="feedWrapper">
-          <Share />
           {result.map((p) => (
               <Post post={p} />
             ))}
@@ -21,4 +19,4 @@ const Feed = ({posts}) => {
       );
 };
 
-export default Feed;
+export default ProfileFeed;

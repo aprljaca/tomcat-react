@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./settings.css";
 import Topbar from "../../components/topbar/Topbar";
+import axios from 'axios'
 
 const Settings = () => {
 
@@ -9,6 +10,7 @@ const Settings = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
 
 
     return (
@@ -55,6 +57,20 @@ const Settings = () => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
+
+            <input
+              type="file"
+              multiple
+              name="file"
+              //onChange={(event) => handleFile(event)}
+            />
+            
+            <button
+              type="button"
+              //onClick={(e) => handleUpload(e)}
+            >
+              Upload
+            </button>
 
             <button
               className="chooseImageButton"

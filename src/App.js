@@ -7,6 +7,7 @@ import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import SavePassword from "./pages/SavePassword/SavePassword";
 import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
+import UploadImage from "./pages/UploadImage/UploadImage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/savePassword/token=:token" element={<SavePassword />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/uploadImage" element={<UploadImage />} />
     </Routes>
   );
 }

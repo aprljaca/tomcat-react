@@ -49,3 +49,6 @@
 .profileRightBottom{
     display: flex;
 }
+.btn{
+    margin: 10px;
+}
