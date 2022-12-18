@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import ProfileFeed from '../../components/profileFeed/ProfileFeed';
 
 const Profile = () => {
+  //params uzima sa urla !
   const params = useParams();
 
   const [jwt, setJwt] = useLocalState("", "jwt");
@@ -103,7 +104,7 @@ const Profile = () => {
   function isFollowing() {
     fetch("/v1/isFollowing?userId="+ params.userId, {
       headers: {
-        "Content-Type": "application/json",
+        //"Content-Type": "application/json",
         Authorization: `Bearer ${jwt}`,
       },
       method: "GET",
@@ -133,23 +134,72 @@ const Profile = () => {
     });
   }
 
+
+  function followUser() {
+    console.log("usao sam u followUser funkciju")
+    fetch("/v1/followUser?userId="+ params.userId, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      method: "POST",
+    })
+      .then((response) => {
+        if (response.status == 200) {
+          console.log("uspjeno followan user")
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        alert(error.message);
+      });
+  }
+
+  function unFollowUser() {
+    fetch("/v1/unFollowUser?userId="+ params.userId, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.status == 200) {
+          console.log("user uspjesno unfollowan")
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        alert(error.message);
+      });
+  }
+
   useEffect(() => getProfileInformation(), [])
   useEffect(() => getProfilePost(), [])
   useEffect(() => getImageName(), [])
   useEffect(() => isFollowing(), [])
 
-  //kad klikne idugme istu metodu isFollowing i ako je false, onda pozvati metodu zaprati api bekend u suprotnom odprati
-
     const [following, setFollowing] = useState(false);
     function handleClick () {
       if(following==true){
         setFollowing(false)
-        //pozovi api za unfollow
+        console.log("pozovi api za follow")
+        followUser();
       } else {
         setFollowing(!false)
-        //pozovi api za follow
+        console.log("pozovi api za unfollow")
+        unFollowUser();
       }
-      
     };
 
   return (

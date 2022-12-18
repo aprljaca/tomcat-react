@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import "./forgotPassword.css";
+import "./resetPassword.css";
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
   const [email, setEmail] = useState("");
 
   function sendResetPasswordRequest() {
-    const requestBody = {
-      email: email,
-    };
 
-    fetch("v1/resetPassword", {
+    fetch("/v1/resetPassword", {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "post",
-      body: JSON.stringify(requestBody),
+      method: "POST",
+      body: JSON.stringify(email),
     })
       .then((response) => {
         if (response.status == 200) {
@@ -66,4 +63,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

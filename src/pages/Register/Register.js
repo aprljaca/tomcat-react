@@ -22,7 +22,7 @@ const Register = () => {
       password: password,
     };
 
-    fetch("v1/register", {
+    fetch("/v1/register", {
       headers: {
         "Content-Type": "application/json",
       },

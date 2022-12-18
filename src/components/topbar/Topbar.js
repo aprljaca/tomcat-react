@@ -1,13 +1,13 @@
 import {React, useEffect, useState} from 'react';
 import "./topbar.css";
-import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import { Search } from "@material-ui/icons";
 import { useLocalState } from "../../util/useLocalStorage";
 import { useParams } from 'react-router-dom';
 
 const Topbar = () => {
     const params = useParams();
     const [jwt, setJwt] = useLocalState("", "jwt");
-    const [userId, setUserid] = useState("");
+    const [userId, setUserId] = useState("");
 
     function getUserIdFromJWT() {
       fetch("/v1/getUserId", {
@@ -29,7 +29,7 @@ const Topbar = () => {
         }
       })
       .then(([body]) => {
-       setUserid(body)
+       setUserId(body)
       })
       .catch((error) => {
         alert(error.message);
@@ -49,7 +49,11 @@ const Topbar = () => {
     return (
         <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">Tomcat</span>
+      <a className="logo">
+          <span 
+          onClick={() => redirectToHome()}
+          >Tomcat</span>
+          </a>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
@@ -63,19 +67,19 @@ const Topbar = () => {
       <div className="topbarRight">
         <div className="topbarLinks">
 
-        <a className="topbarLink">
+        {/* <a className="topbarLink">
           <span 
           onClick={() => redirectToHome()}
           >Home</span>
-          </a>
+          </a> 
 
           <a className="topbarLink">
           <span 
           onClick={() => redirectToProfile()}
           >Profile</span>
-          </a>
+          </a> */}
           
-        </div>
+        </div> 
       </div>
     </div>
     );

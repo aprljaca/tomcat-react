@@ -19,7 +19,7 @@ const Login = () => {
       password: password,
     };
 
-    fetch("v1/login", {
+    fetch("/v1/login", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,8 +46,12 @@ const Login = () => {
       });
   }
   
-
-
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+        sendLoginRequest()
+    }
+  }
+  
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -71,6 +75,7 @@ const Login = () => {
               className="loginInput"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              onKeyDown={handleKeyDown}
             />
             <button
               className="loginButton"
@@ -81,9 +86,9 @@ const Login = () => {
             </button>
             <a
               className="loginForgot"
-              href="http://localhost:3000/forgotPassword"
+              href="http://localhost:3000/resetPassword"
             >
-              <span>Forgot Password?</span>
+              <span>Reset Password?</span>
             </a>
             <button
               className="loginRegisterButton"
