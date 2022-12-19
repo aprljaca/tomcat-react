@@ -1,12 +1,13 @@
 .topbarContainer {
-  height: 50px;
+  height: 65px;
   width: 100%;
-  background-color: #1877f2;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 999;
+  border-bottom: 1px solid;
 }
 
 .topbarLeft {
@@ -17,8 +18,9 @@
   font-size: 24px;
   margin-left: 20px;
   font-weight: bold;
-  color: white;
+  color: rgb(103, 30, 170);
   cursor: pointer;
+  vertical-align: middle
 }
 
 .topbarCenter {
@@ -26,17 +28,24 @@
 }
 
 .searchbar {
-  width: 100%;
-  height: 30px;
-  background-color: white;
-  border-radius: 30px;
   display: flex;
   align-items: center;
+  gap: 10px;
+  border: 1px solid ;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .searchIcon {
   font-size: 20px !important;
-  margin-left: 10px;
+  margin-left: 2px;
+}
+
+.homeIcon {
+  margin-left: 320px;
+  font-size: 27px !important;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 .searchInput {
@@ -49,7 +58,7 @@
 }
 
 .topbarRight {
-  padding-left: 60px;
+  padding-left: 50px;
   flex: 4;
   display:flex;
   align-items: center;
@@ -76,25 +85,88 @@
   position: relative;
 }
 
-.topbarIconBadge {
-  width: 15px;
-  height: 15px;
-  background-color: red;
-  border-radius: 50%;
-  color: white;
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
+.userName {
+  font-size: 20px;
+  margin-left: 380px;
+  font-weight: bold;
+  color: rgb(103, 30, 170);
+  vertical-align: middle
 }
 
 .topbarImg {
+  margin-left: -50px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
+}
+
+.dropdown-menu{
+  position: absolute;
+  top: 60px;
+  right: 47px;
+  background-color: rgb(94, 10, 150);
+  border-color: rgb(0, 0, 0);
+  border-radius: 15px;
+  padding: 10px 20px;
+  width: 200px;
+}
+
+.dropdown-menu::before{
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  background: var(--secondary-bg);
+  transform: rotate(45deg);
+}
+
+.dropdown-menu.active{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: var(--speed) ease;
+}
+
+.dropdown-menu.inactive{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: var(--speed) ease;
+}
+
+.dropdown-menu ul li{
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dropdown-menu ul li:hover a{
+  color: rgb(212, 33, 9);
+  cursor: pointer;
+}
+
+.dropdown-menu ul li:hover img{
+  opacity: 1;
+  cursor: pointer;
+}
+
+.dropdownItem{
+  display: flex;
+  margin: 10px auto;
+}
+
+.dropdownItem img{
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: var(--speed);
+}
+
+.dropdownItem a{
+  max-width: 100px;
+  margin-left: 10px;
+  transition: var(--speed);
 }

@@ -13,6 +13,10 @@ const Login = () => {
     window.location.href = "/register";
   }
 
+  function openHomePage() {
+    window.location.href = "/home";
+  }
+
   function sendLoginRequest() {
     const requestBody = {
       userName: username,
@@ -39,19 +43,21 @@ const Login = () => {
       })
       .then(([body, headers]) => {
         setJwt(headers.get("authorization"));
-        window.location.href = "home";
+        openHomePage();
       })
       .catch((error) => {
         alert(error.message);
       });
+
   }
   
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-        sendLoginRequest()
+        sendLoginRequest();
     }
   }
-  
+
+
   return (
     <div className="login">
       <div className="loginWrapper">

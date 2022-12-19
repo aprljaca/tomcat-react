@@ -52,44 +52,7 @@ const Sidebar = () => {
       }
 
     return (
-        <div className="sidebar">
-      <div className="sidebarWrapper">
-        <ul className="sidebarList">
-          <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span>Home</span>
-          </li>
-          <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span onClick={() => redirectToProfile()}>Profile</span>
-          </li>
-
-          <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span>Followers</span>
-          </li>
-
-          <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span>Following</span>
-          </li>
-
-          <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span onClick={() => redirectToSettings()}>Settings</span>
-          </li>
-
-          <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span onClick={() => logout()}>Logout</span>
-          </li>
-
-          
-
-          
-        </ul>
-      </div>
-    </div>
+       <div></div>
     );
 };
 
