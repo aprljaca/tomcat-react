@@ -1,11 +1,10 @@
-import {React, useEffect, useState, useRef} from 'react';
+import {React, useEffect, useState} from 'react';
 import "./topbar.css";
 import { Search } from "@material-ui/icons";
 import { useLocalState } from "../../util/useLocalStorage";
 import { useParams } from 'react-router-dom';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+
 
 const Topbar = () => {
 
@@ -15,12 +14,10 @@ const Topbar = () => {
     const [lastName, setLastname] = useState("");
     const [userName, setUsername] = useState("");
     const [userId, setUserId] = useState("");
-    const [imageName, setimageName] = useState("");
+    const [image, setImage] = useState("");
     const [open, setOpen] = useState(false);
 
     useEffect(() => getUserIdFromJWT(), []) 
-    //useEffect(() => getImageName(), [])
-    //useEffect(() => getProfileInformation(), [])
 
     function getUserIdFromJWT() {
       fetch("/v1/getUserId", {
@@ -43,37 +40,7 @@ const Topbar = () => {
         }
       })
       .then(([body]) => {
-        //setUserId(body);
-        //console.log("body je: " + body);
-        //console.log("postavljeni userId je: " + userId);
         getProfileInformation(body);
-        getImageName(body);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-    }
-
-    function getImageName(body) {
-      fetch("/v1/downloadImage?userId="+body, {
-        headers: {
-          "Content-Type": "",
-        },
-        method: "GET",
-      })
-      .then((response) => {
-        if (response.status == 200) {
-          return Promise.all([response.json()]);
-        } else {
-          var error = new Error(
-            "Error " + response.status + ": " + response.statusText
-          );
-          error.response = response;
-          throw error;
-        }
-      })
-      .then(([body]) => {
-        setimageName("http://127.0.0.1:8888/"+body.object)   
       })
       .catch((error) => {
         alert(error.message);
@@ -81,8 +48,7 @@ const Topbar = () => {
     }
 
     function getProfileInformation(body) {
-
-      fetch("/v1/profileInformationData?userId="+body, {
+      fetch("/v1/profileInformations?userId="+body, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${jwt}`,
@@ -105,6 +71,7 @@ const Topbar = () => {
         setFirstname(body.firstName)
         setLastname(body.lastName)
         setUsername(body.userName)
+        setImage(body.profileImage)
       })
       .catch((error) => {
         alert(error.message);
@@ -131,16 +98,16 @@ const Topbar = () => {
           onClick={() => redirectToHome()}
           >Tomcat</span>
           </a>
-          <HomeOutlinedIcon className="homeIcon" onClick={() => redirectToHome()}/>
+          {/* <HomeOutlinedIcon className="homeIcon" onClick={() => redirectToHome()}/> */}
       </div>
       <div className="topbarCenter">
-        <div className="searchbar">
+         <div className="searchbar">
           <Search className="searchIcon" />
           <input
             placeholder="Search"
             className="searchInput"
           />
-        </div>
+        </div> 
       </div>
       <div className="topbarRight">
       <a className="userName">
@@ -149,7 +116,7 @@ const Topbar = () => {
       
         <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
         <img 
-      src={imageName}
+      src={image}
       alt="" 
       className="topbarImg"/>
         </div>
@@ -165,7 +132,6 @@ const Topbar = () => {
           </li>
 
   
-          
           </ul>
         </div>
 

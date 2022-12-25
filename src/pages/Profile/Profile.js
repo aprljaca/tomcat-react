@@ -1,10 +1,12 @@
 import {React, useEffect, useState} from 'react';
 import "./profile.css";
 import Topbar from "../../components/topbar/Topbar";
-import Feed from "../../components/feed/Feed";
 import { useLocalState } from "../../util/useLocalStorage";
 import { useParams } from "react-router-dom";
-import ProfileFeed from '../../components/profileFeed/ProfileFeed';
+import Popup from '../../components/popup/Popup';
+import Post from '../../components/post/Post';
+import Feed from '../../components/feed/Feed';
+
 
 const Profile = () => {
   //params uzima sa urla !
@@ -15,10 +17,50 @@ const Profile = () => {
   const [lastName, setLastname] = useState("");
   const [userName, setUsername] = useState("");
   const [posts, setPosts] = useState("");
-  const [imageName, setimageName] = useState("");
+  const [image, setImage] = useState("");
+  const [buttonPopup, setbuttonPopup] = useState(false);
+  const [folowing, setFolowing] = useState("");
+  const [userId, setUserId] = useState("");
+  const [show, setShow] = useState(false);
 
+  useEffect(() => getUserIdFromJWT(), []) 
+
+    function getUserIdFromJWT() {
+      fetch("/v1/getUserId", {
+        headers: {
+          "Content-Type": "",
+          Authorization: `Bearer ${jwt}`,
+        },
+        method: "GET",
+      })
+      .then((response) => {
+        if (response.status == 200) {
+          return Promise.all([response.json()]);
+          
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      })
+      .then(([body]) => {
+
+        if(body!=params.userId){
+          setShow(true);
+        }
+
+        getProfileInformation(body);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+    }
+
+      
   function getProfileInformation() {
-    fetch("/v1/profileInformationData?userId="+ params.userId, {
+    fetch("/v1/profileInformations?userId="+ params.userId, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${jwt}`,
@@ -37,9 +79,12 @@ const Profile = () => {
       }
     })
     .then(([body]) => {
+      console.log(body)
+      setUserId(body.userId)
       setFirstname(body.firstName)
       setLastname(body.lastName)
       setUsername(body.userName)
+      setImage(body.profileImage)
     })
     .catch((error) => {
       alert(error.message);
@@ -47,7 +92,7 @@ const Profile = () => {
   }
 
   function getProfilePost() {
-    fetch("/v1/profilePostData?userId="+ params.userId, {
+    fetch("/v1/profilePosts?userId="+ params.userId, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${jwt}`,
@@ -67,39 +112,11 @@ const Profile = () => {
     })
     .then(([body]) => {
       setPosts(body);
-      console.log(body)
     })
     .catch((error) => {
       alert(error.message);
     });
   }
-
-  function getImageName() {
-    fetch("/v1/downloadImage?userId="+ params.userId, {
-      headers: {
-        "Content-Type": "",
-      },
-      method: "GET",
-    })
-    .then((response) => {
-      if (response.status == 200) {
-        return Promise.all([response.json()]);
-      } else {
-        var error = new Error(
-          "Error " + response.status + ": " + response.statusText
-        );
-        error.response = response;
-        throw error;
-      }
-    })
-    .then(([body]) => {
-      setimageName("http://127.0.0.1:8888/"+body.object)   
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
-  }
-
 
   function isFollowing() {
     fetch("/v1/isFollowing?userId="+ params.userId, {
@@ -184,9 +201,37 @@ const Profile = () => {
       });
   }
 
+  function getUserFollowing() {
+    fetch("/v1/userFollowing?userId="+params.userId, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+    })
+    .then((response) => {
+      if (response.status == 200) {
+        return Promise.all([response.json()]);
+      } else {
+        var error = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
+        error.response = response;
+        throw error;
+      }
+    })
+    .then(([body]) => {
+        setFolowing(body);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+  }
+
+  var obj = folowing;
+  var result = Object.keys(obj).map((key) => [Number(key), obj[key]]);
+
   useEffect(() => getProfileInformation(), [])
   useEffect(() => getProfilePost(), [])
-  useEffect(() => getImageName(), [])
   useEffect(() => isFollowing(), [])
 
     const [following, setFollowing] = useState(false);
@@ -202,39 +247,61 @@ const Profile = () => {
       }
     };
 
+    function twoFucntions(){
+      setbuttonPopup(true);
+      getUserFollowing()
+    };
+   
   return (
-    <>
-      <Topbar />
-      <div className="profile">
-        <div className="profileRight">
-          <div className="profileRightTop">
-          <div className="profileCover">
-              <img
-                className="profileUserImg"
-                src={imageName}
-                alt=""
-              />
+    
+    <div>
+      <Topbar/>
+    <div className="images">
+    
+       <img
+        src={image}
+        alt=""
+        className="profilePic"
+      /> 
+    </div>
+    <div className="profileContainer">
+      <div className="uInfo">
+        <div className="left">
+        </div>
+        <div className="center">
+          <span>{firstName} {lastName}</span>
+          <div className="info">
+            <div className="item">
             </div>
-            <div className="profileInfo">
-                <h4 className="profileInfoName">{firstName} {lastName}</h4>
-                <span className="profileInfoDesc">{userName}</span>
-                <div>
+          </div>
+          {show && <button onClick={handleClick}>{ following ? "Follow" : "Unfollow"}</button>}
+        </div>
+        <div className="right">
+        <button>Followers</button>
 
-                <button onClick={handleClick}>
-              { following ? "Follow" : "Unfollow"}
-              </button>
+        <button onClick={() => twoFucntions()}>Following</button>
 
+        <Popup trigger={buttonPopup} setTrigger={setbuttonPopup}>
+            <h1>Following</h1>
+
+                {result.map((following) => (
+                  console.log(following[1].firstName),
+                <div className="user">
+                    <img
+                    className="FriendImg"
+                    src={following[1].profileImage}
+                    alt=""
+                     />
+                    <span>{following[1].firstName + " " + following[1].lastName}</span>                
                 </div>
                 
-            </div>
-          </div>
-          <div className="profileRightBottom">
-            <ProfileFeed posts={posts}/>
-          </div>
-
+                ))}
+            </Popup>
         </div>
       </div>
-    </>
+      <Feed posts={posts}/>
+    </div>
+  </div>
   );
 };
 

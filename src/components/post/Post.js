@@ -1,87 +1,134 @@
 import {React, useEffect, useState} from 'react';
 import "./post.css";
-import { MoreVert } from "@material-ui/icons";
-import { Users } from "../../dummyData";
+import { useParams } from "react-router-dom";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import Comment from '../comment/Comment';
+import { useLocalState } from "../../util/useLocalStorage";
+
 
 const Post = ({post}) => {
-  const [like,setLike] = useState(post.likesNumber)
-  const [isLiked,setIsLiked] = useState(false)
-  const [firstName, setFirstname] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [userName, setUsername] = useState("");
+  const params = useParams();
+  const [jwt, setJwt] = useLocalState("", "jwt");
+  const [commentOpen, setCommentOpen] = useState(false);
+  const [like, setLike] = useState(false)
+  const [postId, setPostId] = useState("")
 
-  const likeHandler =()=>{
-    setLike(isLiked ? like-1 : like+1)
-    setIsLiked(!isLiked)
+  useEffect(() => isLiked(), [])
+
+  function isLiked(){
+    setPostId(post[1].postId)
+    if(post[1].isLiked==true){
+      setLike(true)
+    } else {
+      setLike(false)
+    }
   }
 
-  console.log(post)
+  function likeFunction(){
+    if(like==true){
+      dislikePost();
+      setLike(false);
+    } else {
+      likePost();
+      setLike(true);
+    }
+  }
 
-  function getProfileInformation() {
-    fetch("/v1/profileInformationData?userId="+ post[1].userId, {
+  function likePost(){
+    const requestBody = {
+      postId: postId
+    };
+    fetch("/v1/like",{
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
       },
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify(requestBody),
     })
-    .then((response) => {
-      if (response.status == 200) {
-        return Promise.all([response.json()]);
-      } else {
-        var error = new Error(
-          "Error " + response.status + ": " + response.statusText
-        );
-        error.response = response;
-        throw error;
-      }
-    })
-    .then(([body]) => {
-      setFirstname(body.firstName)
-      setLastname(body.lastName)
-      setUsername(body.userName)
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
+      .then((response) => {
+        if (response.status == 200) {
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        //alert(error.message);
+      });
+    
   }
 
-  useEffect(() => getProfileInformation(), [])
+  function dislikePost(){
+    const requestBody = {
+      postId: postId,
+    };
+
+    fetch("/v1/dislike",{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      method: "DELETE",
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (response.status == 200) {
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        //{commentOpen &&  <Comment comments={post[1].commentInfoList}/>}
+      });
+  }
 
     return (
-        <div className="post">
-          <div className="postWrapper">
-            <div className="postTop">
-              <div className="postTopLeft">
-                <img
-                  className="postProfileImg"
-                  //src={}
-                  alt=""
-                />
-                <span className="postUsername">
-                  {userName}
-                </span>
-                <span className="postDate">{post[1].createdTime}</span>
-              </div>
-              <div className="postTopRight">
-                <MoreVert />
+        <div id={post[1].postId} className="post">
+        <div className="container">
+          <div className="user">
+            <div className="userInfo">
+              <img className="profileImg" src={post[1].profileImage} alt="" />
+              <div className="details">
+                  <span className="name">{post[1].firstName + " " + post[1].lastName}</span>
+                <span className="date">{post[1].createdTime}</span>
               </div>
             </div>
-            <div className="postCenter">
-              <span className="postText">{post[1].text}</span>
-              <img className="postImg" src={post.photo} alt="" />
+            <MoreHorizIcon />
+          </div>
+          <div className="content">
+            <p>{post[1].text}</p>
+          </div>
+          <div className="info">
+            <div className="item" onClick={() => likeFunction()}>
+              {like ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+              {post[1].likesNumber + " Likes"}
             </div>
-            <div className="postBottom">
-              <div className="postBottomLeft">
-                <img className="likeIcon" src="assets/like.png" onClick={likeHandler} alt="" />
-                <img className="likeIcon" src="assets/heart.png" onClick={likeHandler} alt="" />
-                <span className="postLikeCounter">{post[1].likesNumber} people like it</span>
-              </div>
-              <div className="postBottomRight">
-                <span className="postCommentText">{post[1].commentsNumber} comments</span>
-              </div>
+            <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
+              <TextsmsOutlinedIcon />
+              {post[1].commentsNumber + " Comments"}
+            </div>
+            <div className="item">
+              <ShareOutlinedIcon />
+              Share
             </div>
           </div>
+          {commentOpen &&  <Comment comments={post[1].commentInfoList} postId={post[1].postId}/>}
         </div>
+      </div>
       );
 };
 

@@ -10,7 +10,6 @@ import Settings from "./pages/Settings/Settings";
 import UploadImage from "./pages/UploadImage/UploadImage";
 import Test from "./pages/Test/Test";
 
-
 function App() {
   return (
     <Routes>

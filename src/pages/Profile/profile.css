@@ -3,52 +3,100 @@
     width: 60%;
 }
 
-.profileRight{
-    flex: 9;
-}
-
-.profileCover{
-    height: 320px;
+.images {
+    width: 100%;
+    height: 100px;
     position: relative;
 }
 
-.profileCoverImg{
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.profileUserImg{
-    width: 150px;
-    height: 150px;
+.profilePic {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
     position: absolute;
     left: 0;
     right: 0;
     margin: auto;
-    top: 150px;
-    border: 3px solid white;
+    top: 30px;
 }
 
-.profileInfo{
+.profileContainer {
+    width: 50%;
+    padding: 20px 80px;
+    margin: auto;
+}
+
+.uInfo {
+    height: 150px;
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.left {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+}
+
+.center {
+    padding-top: 70px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 10px;
+
 }
 
-.profileInfoName{
-    font-size: 24px;
-}
-
-.profileInfoDesc{
-    font-weight: 300;
-}
-
-.profileRightBottom{
+.info {
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
-.btn{
-    margin: 10px;
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: blue;
 }
+
+button {
+    border: none;
+    background-color: #5271ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .right {
+    margin-top: -130px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+  }
+
+  .FriendImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+
+ 
