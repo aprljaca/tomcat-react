@@ -98,8 +98,8 @@ const Post = ({post}) => {
 
     return (
         <div id={post[1].postId} className="post">
-        <div className="container">
-          <div className="user">
+        <div className="postContainer">
+          <div className="postUser">
             <div className="userInfo">
               <img className="profileImg" src={post[1].profileImage} alt="" />
               <div className="details">
@@ -113,15 +113,15 @@ const Post = ({post}) => {
             <p>{post[1].text}</p>
           </div>
           <div className="info">
-            <div className="item" onClick={() => likeFunction()}>
+            <div className="postItem" onClick={() => likeFunction()}>
               {like ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
               {post[1].likesNumber + " Likes"}
             </div>
-            <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
+            <div className="postItem" onClick={() => setCommentOpen(!commentOpen)}>
               <TextsmsOutlinedIcon />
               {post[1].commentsNumber + " Comments"}
             </div>
-            <div className="item">
+            <div className="postItem">
               <ShareOutlinedIcon />
               Share
             </div>

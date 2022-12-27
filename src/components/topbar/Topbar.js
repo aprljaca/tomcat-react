@@ -84,7 +84,10 @@ const Topbar = () => {
     function redirectToProfile(){
       window.location.href="/profile/"+userId;
     }
-
+    function redirectToChangePassword(){
+      window.location.href="/changePassword";
+      
+    }
     function logout(){
       localStorage.clear();
       window.location.href="/login";
@@ -125,6 +128,10 @@ const Topbar = () => {
 
           <li className = 'dropdownItem'>
           <a onClick={() => redirectToProfile()}>Profile</a>
+          </li>
+
+          <li className = 'dropdownItem'>
+          <a onClick={() => redirectToChangePassword()}>Change password</a>
           </li>
 
           <li className = 'dropdownItem'>

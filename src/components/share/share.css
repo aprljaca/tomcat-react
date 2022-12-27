@@ -1,64 +1,65 @@
 .share {
-    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    border-radius: 20px;
-    margin-bottom: 30px;
-
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  margin-bottom: 30px;
+  background-color: white;
 }
 
 .shareContainer {
   padding: 20px;
 }
 
- .top {
-        display: flex;
-        align-items: center;
-        gap: 20px;
- }
+.top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 
 .shareImg {
-        margin-top: 0;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          object-fit: cover;
-}
-
- .shareInput {
   margin-top: 0;
-          border: none;
-          outline: none;
-          padding: 10px 20px;
-          background-color: transparent;
-          width: 60%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-      .shareBottom {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .shareLeft {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-      .shareItem {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        cursor: pointer;
-      }
 
-      .itemImg {
-        height: 20px;
-      }
+.shareInput {
+  margin-top: 0;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  background-color: transparent;
+  width: 60%;
+}
+      
+.shareBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+      
+.shareLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+      
+.shareItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
 
-      .shareRight {
-        border: none;
-        padding: 5px;
-        color: white;
-        cursor: pointer;
-        background-color: #5271ff;
-        border-radius: 3px;
-      }
+.itemImg {
+  height: 20px;
+}
+
+.shareRight {
+  border: none;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
+  background-color: #5271ff;
+  border-radius: 3px;
+}

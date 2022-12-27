@@ -15,7 +15,7 @@ const ResetPassword = () => {
     })
       .then((response) => {
         if (response.status == 200) {
-          window.location.href = "savePassword";
+          alert("Email sent successfully");
         } else {
           var error = new Error(
             "Error " + response.status + ": " + response.statusText

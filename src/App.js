@@ -9,6 +9,7 @@ import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
 import UploadImage from "./pages/UploadImage/UploadImage";
 import Test from "./pages/Test/Test";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 
 function App() {
   return (
@@ -24,11 +25,12 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/profile/:userId" element={<Profile/>} />
       <Route path="/register" element={<Register />} />
-      <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/savePassword/token=:token" element={<SavePassword />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/uploadImage" element={<UploadImage />} />
       <Route path="/test" element={<Test />} />
+      <Route path="/resetPassword" element={<ResetPassword />} />
+      <Route path="/changePassword" element={<ChangePassword />} />
     </Routes>
   );
 }

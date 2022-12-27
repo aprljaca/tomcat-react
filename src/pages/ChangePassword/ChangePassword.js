@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import "./savePassword.css";
-import { useParams } from "react-router-dom";
+import { useLocalState } from "../../util/useLocalStorage";
+import Topbar from "../../components/topbar/Topbar";
+import "./changePassword.css";
 
-const SavePassword = () => {
-  const { token } = useParams();
-  const [newPassword, setNewPassword] = useState("");
+const ChangePassword = () => {
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [jwt, setJwt] = useLocalState("", "jwt");
   
+
   function resetPasswordRequest() {
     const requestBody = {
-      newPassword: newPassword
+      oldPassword: oldPassword,
+      newPassword: newPassword,
     };
 
-    fetch("/v1/savePassword?token=" + token, {
+    fetch("/v1/changePassword", {
       headers: {
+        Authorization: `Bearer ${jwt}`,
         "Content-Type": "application/json",
       },
       method: "POST",
@@ -30,8 +35,12 @@ const SavePassword = () => {
       });
   }
 
-  return (
-    <div className="save">
+
+
+    return (
+      <div>
+        <Topbar/>
+        <div className="save">
       <div className="saveWrapper">
         <div className="saveLeft">
           <h3 className="saveLogo">Tomcat</h3>
@@ -42,10 +51,17 @@ const SavePassword = () => {
         <div className="saveRight">
           <div className="saveBox">
             <h1>Save new password</h1>
-            <h3>Please enter your new password.</h3>
+            <h3>Please enter your old and new password.</h3>
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Old password"
+              className="saveInput"
+              value={oldPassword}
+              onChange={(event) => setOldPassword(event.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="New password"
               className="saveInput"
               value={newPassword}
               onChange={(event) => setNewPassword(event.target.value)}
@@ -61,7 +77,8 @@ const SavePassword = () => {
         </div>
       </div>
     </div>
-  );
+      </div>
+    );
 };
 
-export default SavePassword;
+export default ChangePassword;

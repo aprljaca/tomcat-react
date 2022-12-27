@@ -118,7 +118,7 @@ const Comment = ({comments, postId}) => {
         onChange={(event) => setText(event.target.value)}/>
 
       
-      <button id={postId} onClick={handleClick}>Send</button>
+      <button className="sendButton" id={postId} onClick={handleClick}>Send</button>
         
       </div>
       {comments.map((comment) => (

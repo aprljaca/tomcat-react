@@ -5,6 +5,9 @@ import "./home.css";
 import { useParams } from "react-router-dom";
 import Share from '../../components/share/Share';
 import Feed from '../../components/feed/Feed';
+import Rightbar from '../../components/rightbar/Rightbar';
+import Online from '../../components/online/Online';
+
 
 const Home = () => {
   const params = useParams();
@@ -43,13 +46,16 @@ const Home = () => {
 
 
   return (
-      <div>
-         <Topbar />
-      <div className="homeContainer">
-        <Share/>
-        <Feed posts={posts}/>
+    <div>
+    <Topbar />
+    <div className="homeContainer">
+      <div className="homeFeedWrapper">
+      <Share/>
       </div>
-      </div>
+      <Feed posts={posts}/>
+    </div>
+    </div>
+      
 
   );
 };

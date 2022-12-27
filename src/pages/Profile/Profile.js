@@ -18,8 +18,10 @@ const Profile = () => {
   const [userName, setUsername] = useState("");
   const [posts, setPosts] = useState("");
   const [image, setImage] = useState("");
-  const [buttonPopup, setbuttonPopup] = useState(false);
+  const [buttonPopupFollwers, setbuttonPopupFollowers] = useState(false);
+  const [buttonPopupFollwing, setbuttonPopupFollowing] = useState(false);
   const [folowing, setFolowing] = useState("");
+  const [folowers, setFolowers] = useState("");
   const [userId, setUserId] = useState("");
   const [show, setShow] = useState(false);
 
@@ -227,8 +229,38 @@ const Profile = () => {
     });
   }
 
-  var obj = folowing;
+  function getUserFollowers() {
+    fetch("/v1/userFollowers?userId="+params.userId, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+    })
+    .then((response) => {
+      if (response.status == 200) {
+        return Promise.all([response.json()]);
+      } else {
+        var error = new Error(
+          "Error " + response.status + ": " + response.statusText
+        );
+        error.response = response;
+        throw error;
+      }
+    })
+    .then(([body]) => {
+        setFolowers(body);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+  }
+
+
+  var obj = folowers;
   var result = Object.keys(obj).map((key) => [Number(key), obj[key]]);
+
+  var obj1 = folowing;
+  var result1 = Object.keys(obj1).map((key) => [Number(key), obj1[key]]);
 
   useEffect(() => getProfileInformation(), [])
   useEffect(() => getProfilePost(), [])
@@ -247,9 +279,18 @@ const Profile = () => {
       }
     };
 
-    function twoFucntions(){
-      setbuttonPopup(true);
+    function openFollowing(){
+      setbuttonPopupFollowing(true);
       getUserFollowing()
+    };
+
+    function openFollowers(){
+      setbuttonPopupFollowers(true);
+      getUserFollowers()
+    };
+
+    const userClick = event => {
+      window.location.href = "/profile/" + event.currentTarget.id;
     };
    
   return (
@@ -266,27 +307,43 @@ const Profile = () => {
     </div>
     <div className="profileContainer">
       <div className="uInfo">
-        <div className="left">
+        <div className="profileLeft">
         </div>
         <div className="center">
           <span>{firstName} {lastName}</span>
           <div className="info">
-            <div className="item">
+            <div className="profileItem">
             </div>
           </div>
-          {show && <button onClick={handleClick}>{ following ? "Follow" : "Unfollow"}</button>}
+          {show && <button className="followButton" onClick={handleClick}>{ following ? "Follow" : "Unfollow"}</button>}
         </div>
-        <div className="right">
-        <button>Followers</button>
+        <div className="profileRight">
 
-        <button onClick={() => twoFucntions()}>Following</button>
+        <button className="followButton" onClick={() => openFollowers()}>Followers</button>
 
-        <Popup trigger={buttonPopup} setTrigger={setbuttonPopup}>
+        <Popup trigger={buttonPopupFollwers} setTrigger={setbuttonPopupFollowers}>
+            <h1>Followers</h1>
+
+                {result.map((folowers) => (
+                <div className="users" id={folowers[1].userId} onClick={userClick}>
+                    <img
+                    className="FriendImg"
+                    src={folowers[1].profileImage}
+                    alt=""
+                     />
+                    <span>{folowers[1].firstName + " " + folowers[1].lastName}</span>                
+                </div>
+                ))}
+        </Popup>
+
+        <button className="followButton" onClick={() => openFollowing()}>Following</button>
+
+        <Popup trigger={buttonPopupFollwing} setTrigger={setbuttonPopupFollowing}>
             <h1>Following</h1>
 
-                {result.map((following) => (
+                {result1.map((following) => (
                   console.log(following[1].firstName),
-                <div className="user">
+                <div className="users" id={following[1].userId} onClick={userClick}>
                     <img
                     className="FriendImg"
                     src={following[1].profileImage}
@@ -294,9 +351,8 @@ const Profile = () => {
                      />
                     <span>{following[1].firstName + " " + following[1].lastName}</span>                
                 </div>
-                
                 ))}
-            </Popup>
+        </Popup>
         </div>
       </div>
       <Feed posts={posts}/>

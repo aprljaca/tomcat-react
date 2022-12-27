@@ -1,13 +1,14 @@
 .topbarContainer {
   height: 65px;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #fcfcfc;
   display: flex;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 999;
   border-bottom: 1px solid;
+  border: 1px solid gray;
 }
 
 .topbarLeft {
@@ -18,7 +19,7 @@
   font-size: 24px;
   margin-left: 20px;
   font-weight: bold;
-  color: rgb(103, 30, 170);
+  color: #1775ee;
   cursor: pointer;
   vertical-align: middle
 }
@@ -89,7 +90,7 @@
   font-size: 20px;
   margin-left: 365px;
   font-weight: bold;
-  color: rgb(103, 30, 170);
+  color: #1775ee;
   vertical-align: middle
 }
 
@@ -106,7 +107,7 @@
   position: absolute;
   top: 60px;
   right: 47px;
-  background-color: rgb(94, 10, 150);
+  background-color:#1775ee;
   border-color: rgb(0, 0, 0);
   border-radius: 15px;
   padding: 10px 20px;

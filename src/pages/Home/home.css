@@ -1,5 +1,11 @@
+
 .homeContainer{
     width: 50%;
     padding: 20px 80px;
     margin: auto;
+}
+.homeFeedWrapper{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
 }
