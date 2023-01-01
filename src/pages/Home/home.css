@@ -1,11 +1,31 @@
-
 .homeContainer{
     width: 50%;
     padding: 20px 80px;
-    margin: auto;
+    margin-left: 360px;
 }
 .homeFeedWrapper{
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
+}
+.container {
+    width: 100%;
+    margin: auto;
+    }
+
+.primary {
+    float: left;
+    width: 10%;
+    display: none;
+}
+  
+.content1 {
+    float: left;
+    width: 80%;
+}
+        
+.secondary {
+    float: left;
+    width: 20%;
+    height: 100vh;
 }

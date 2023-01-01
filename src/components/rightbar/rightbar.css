@@ -1,38 +1,23 @@
-.rightBar{
-  height: 300px;
-  background-color: black;
+.rbContainer{
+    margin-top: 40px;
+    margin-left: 30px;
+    padding: 20px;
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 2px;
+    margin-bottom: 30px;
+    background-color: white;
+    width: 300px;
 }
 
- .containerRB {
-    padding: 20px;
+.rightbarUser{
+    padding-bottom: 10px;
+    cursor: pointer;
  }
 
- .RBItem {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: blue;
-}
-
-.rbimg {
-    width: 40px;
-    height: 40px;
+ .userFriendImg {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     object-fit: cover;
-}
-
-
-.userrb {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 20px 0px;
-}
-
-.userInforb {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: relative;
-    
+    margin-right: 10px;
 }

@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import Share from '../../components/share/Share';
 import Feed from '../../components/feed/Feed';
 import Rightbar from '../../components/rightbar/Rightbar';
-import Online from '../../components/online/Online';
 
 
 const Home = () => {
@@ -47,13 +46,23 @@ const Home = () => {
 
   return (
     <div>
-    <Topbar />
+      <Topbar />
+	  <div class="container">
+
+	   <div class="content1">
+     
     <div className="homeContainer">
       <div className="homeFeedWrapper">
       <Share/>
       </div>
       <Feed posts={posts}/>
     </div>
+
+	   </div>
+	   <div class="secondary ">
+     <Rightbar/>
+	   </div>
+	</div>
     </div>
       
 
@@ -61,3 +70,4 @@ const Home = () => {
 };
 
 export default Home;
+
