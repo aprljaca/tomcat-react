@@ -13,7 +13,8 @@ const Rightbar = () => {
   function getRandomProfiles() {
     fetch("/v1/randomProfiles", {
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json"
       },
       method: "GET",
     })

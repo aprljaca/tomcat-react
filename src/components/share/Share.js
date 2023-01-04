@@ -7,6 +7,7 @@ const Share = () => {
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [firstName, setFirstname] = useState("");
   const [image, setImage] = useState("");
+  const [text, setText] = useState("");
 
   useEffect(() => getUserIdFromJWT(), []) 
 
@@ -66,6 +67,34 @@ const Share = () => {
       });
     }
 
+    function createPost(){
+      fetch("/v1/createPost",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+        method: "POST",
+        body: JSON.stringify(text),
+      })
+        .then((response) => {
+          if (response.status == 200) {
+          } else {
+            var error = new Error(
+              "Error " + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        })
+        .then((result) => {
+          window.location.reload(false);
+        })
+        .catch((error) => {
+          console.log(error.message);
+          //alert(error.message);
+        });
+    }
+
     return (
         <div className="share">
       <div className="shareContainer">
@@ -74,7 +103,13 @@ const Share = () => {
             src={image}
             alt=""
           />
-          <input className="shareInput" cltype="text" placeholder={"What is on your mind " + firstName + " ?"}  />
+          <input
+              className="shareInput"
+              cltype="text"
+              placeholder={"What is on your mind " + firstName + " ?"}
+              value={text}
+              onChange={(event) => setText(event.target.value)}
+            />
         </div>
         <hr />
         <div className="shareBottom">
@@ -88,7 +123,7 @@ const Share = () => {
             </label>
           </div>
           <div>
-            <button className="shareRight">Share</button>
+            <button className="shareRight" onClick={()=> createPost()}>Share</button>
           </div>
         </div>
       </div>

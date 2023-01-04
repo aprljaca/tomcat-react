@@ -7,7 +7,6 @@ import Share from '../../components/share/Share';
 import Feed from '../../components/feed/Feed';
 import Rightbar from '../../components/rightbar/Rightbar';
 
-
 const Home = () => {
   const params = useParams();
 

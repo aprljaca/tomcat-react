@@ -1,44 +1,68 @@
 import {React, useEffect, useState} from 'react';
 import { useLocalState } from "../../util/useLocalStorage";
+import "./test.css";
+import {over} from 'stompjs';
+import SockJS from 'sockjs-client';
 
-
+var stompClient =null;
 const Test = () => {
 
-    const [jwt, setJwt] = useLocalState("", "jwt");
+  const [name, setName] = useState("");
 
-    function likePost(postId){
-        const requestBody = {
-          postId: postId
-        };
-        console.log(JSON.stringify(requestBody))
-        fetch("/v1/like",{
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${jwt}`,
-          },
-          method: "POST",
-          body: JSON.stringify(requestBody),
-        })
-          .then((response) => {
-            if (response.status == 200) {
-            } else {
-              var error = new Error(
-                "Error " + response.status + ": " + response.statusText
-              );
-              error.response = response;
-              throw error;
-            }
-          })
-          .catch((error) => {
-            console.log(error.message);
-            alert(error.message);
+  function connect() {
+      let socket = new SockJS("/v1/stomp");
+      stompClient = over(socket);
+      stompClient.connect({}, function (frame){
+         
+          stompClient.subscribe('/topic/greetings', function (greeting) {
+              console.log(JSON.parse(greeting.body));
           });
+      });
+  }
+
+ 
+
+  function disconnect() {
+      if (stompClient !== null) {
+          stompClient.disconnect();
       }
+      console.log("Disconnected");
+  }
+
+  function sendName1() {
+      stompClient.send("/app/hello", {}, JSON.stringify({'name': name}));
+  }
 
     return (
-        <div>
-        <button onClick={() => likePost(1)}> Dugme </button> 
-        </div>
+      <div >
+    
+      <div >
+          
+              <div >
+                  <label>WebSocket connection:</label>
+                  <button  type="submit" onClick={connect}>Connect</button>
+                  <button  type="submit" disabled="disabled" onClick={disconnect}>Disconnect
+                  </button>
+              </div>
+          
+      </div>
+      <div >
+          
+              <div >
+                  <label>What is your name?</label>
+                  <input
+                  placeholder="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+          />
+              </div>
+              <button type="submit" onClick={sendName1}>Send</button>
+          
+      </div>
+  
+  <div>
+  </div>
+</div>
     );
 };
 

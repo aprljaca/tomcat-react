@@ -8,6 +8,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Comment from '../comment/Comment';
 import { useLocalState } from "../../util/useLocalStorage";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const Post = ({post}) => {
@@ -16,8 +17,10 @@ const Post = ({post}) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [like, setLike] = useState(false)
   const [postId, setPostId] = useState("")
+  const [myPost, setMyPost] = useState("")
 
   useEffect(() => isLiked(), [])
+  useEffect(() => ifPostIsMine(), [])
 
   function isLiked(){
     setPostId(post[1].postId)
@@ -25,6 +28,15 @@ const Post = ({post}) => {
       setLike(true)
     } else {
       setLike(false)
+    }
+  }
+
+  function ifPostIsMine(){
+    if(post[1].myPost==true){
+      setMyPost(true)
+    }
+    else {
+      setMyPost(false)
     }
   }
 
@@ -92,7 +104,37 @@ const Post = ({post}) => {
       })
       .catch((error) => {
         console.log(error.message);
-        //{commentOpen &&  <Comment comments={post[1].commentInfoList}/>}
+      });
+  }
+
+  function deletePost(){
+    const requestBody = {
+      postId: postId,
+    };
+
+    fetch("/v1/deletePost",{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      method: "DELETE",
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (response.status == 200) {
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      })
+      .then((result) => {
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
   }
 
@@ -107,7 +149,8 @@ const Post = ({post}) => {
                 <span className="date">{post[1].createdTime}</span>
               </div>
             </div>
-            <MoreHorizIcon />
+            {/* {myPost && <MoreHorizIcon className="test"/>} */}
+            {myPost && <DeleteIcon className="test" onClick={() => deletePost()}/> }
           </div>
           <div className="content">
             <p>{post[1].text}</p>

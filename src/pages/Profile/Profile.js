@@ -25,6 +25,9 @@ const Profile = () => {
   const [userId, setUserId] = useState("");
   const [show, setShow] = useState(false);
 
+  const [followersNumber, setFollowersNumber] = useState("");
+  const [followingNumber, setFollowingNumber] = useState("");
+
   useEffect(() => getUserIdFromJWT(), []) 
 
     function getUserIdFromJWT() {
@@ -87,6 +90,8 @@ const Profile = () => {
       setLastname(body.lastName)
       setUsername(body.userName)
       setImage(body.profileImage)
+      setFollowersNumber(body.followersNumber)
+      setFollowingNumber(body.followingNumber)
     })
     .catch((error) => {
       alert(error.message);
@@ -319,7 +324,7 @@ const Profile = () => {
         </div>
         <div className="profileRight">
 
-        <button className="followButton" onClick={() => openFollowers()}>Followers</button>
+        <button className="followButton" onClick={() => openFollowers()}>{"Followers: " + followersNumber}</button>
 
         <Popup trigger={buttonPopupFollwers} setTrigger={setbuttonPopupFollowers}>
             <h1>Followers</h1>
@@ -336,7 +341,7 @@ const Profile = () => {
                 ))}
         </Popup>
 
-        <button className="followButton" onClick={() => openFollowing()}>Following</button>
+        <button className="followButton" onClick={() => openFollowing()}>{"Following: " + followingNumber}</button>
 
         <Popup trigger={buttonPopupFollwing} setTrigger={setbuttonPopupFollowing}>
             <h1>Following</h1>

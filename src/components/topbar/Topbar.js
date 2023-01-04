@@ -86,7 +86,9 @@ const Topbar = () => {
     }
     function redirectToChangePassword(){
       window.location.href="/changePassword";
-      
+    }
+    function redirectToChangeProfileImage(){
+      window.location.href="/uploadImage";
     }
     function logout(){
       localStorage.clear();
@@ -119,9 +121,9 @@ const Topbar = () => {
       
         <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
         <img 
-      src={image}
-      alt="" 
-      className="topbarImg"/>
+          src={image}
+          alt="" 
+          className="topbarImg"/>
         </div>
         <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} >
           <ul>
@@ -132,6 +134,10 @@ const Topbar = () => {
 
           <li className = 'dropdownItem'>
           <a onClick={() => redirectToChangePassword()}>Change password</a>
+          </li>
+
+          <li className = 'dropdownItem'>
+          <a onClick={() => redirectToChangeProfileImage()}>Change profile image</a>
           </li>
 
           <li className = 'dropdownItem'>
