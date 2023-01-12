@@ -48,6 +48,7 @@
   border: 1px solid gray;
   font-size: 18px;
   padding-left: 20px;
+  display: block;
 }
 
 .loginInput:focus {
@@ -63,6 +64,7 @@
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .loginForgot {
@@ -81,4 +83,17 @@
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+}
+
+.eye{
+  margin-top: -55px;
+  margin-left: 570px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+
+}
+
+.alert{
+  color: #ff1100;
 }

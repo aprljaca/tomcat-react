@@ -4,8 +4,7 @@ import { useParams } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Comment from '../comment/Comment';
 import { useLocalState } from "../../util/useLocalStorage";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -165,8 +164,8 @@ const Post = ({post}) => {
               {post[1].commentsNumber + " Comments"}
             </div>
             <div className="postItem">
-              <ShareOutlinedIcon />
-              Share
+              <BookmarkIcon />
+              Bookmark
             </div>
           </div>
           {commentOpen &&  <Comment comments={post[1].commentInfoList} postId={post[1].postId}/>}

@@ -47,9 +47,9 @@ const UploadImage = () => {
         </div>
         <div className="uploadRight">
           <div className="uploadBox">
-            <h1>Change your profile imag</h1>
+            <h1>Change your profile image</h1>
             <input type="file" name="file" onChange={changeHandler} />
-           <button className="uploadButton" onClick={FileUploadPage}>Submit</button>
+           <button className="uploadButton" onClick={FileUploadPage}>Save</button>
           </div>
         </div>
       </div>

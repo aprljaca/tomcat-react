@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
@@ -10,6 +10,9 @@ import Settings from "./pages/Settings/Settings";
 import UploadImage from "./pages/UploadImage/UploadImage";
 import Test from "./pages/Test/Test";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import Notification from "./pages/Notification/Notification";
+import Proba from "./pages/Proba/Proba";
+import Users from "./pages/Users/Users";
 
 function App() {
   return (
@@ -28,9 +31,11 @@ function App() {
       <Route path="/savePassword/token=:token" element={<SavePassword />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/uploadImage" element={<UploadImage />} />
-      <Route path="/test" element={<Test />} />
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/changePassword" element={<ChangePassword />} />
+      <Route path="/notification" element={<Notification />} />
+      <Route path="/test" element={<Test />} />
+      <Route path="/users" element={<Users/>} />
     </Routes>
   );
 }

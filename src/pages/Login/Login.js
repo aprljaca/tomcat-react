@@ -1,13 +1,22 @@
 import "./login.css";
 import React, { useState } from "react";
 import { useLocalState } from "../../util/useLocalStorage";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Login = () => {
   //local storage from inputs
+  const [state, setState] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   //local storage in browser
   const [jwt, setJwt] = useLocalState("", "jwt");
+
+  const [error, setError] = useState(false);
+
+  const togleBtn = () =>{
+    setState(prevState => !prevState);
+  }
 
   function openRegistrationPage() {
     window.location.href = "/register";
@@ -46,7 +55,7 @@ const Login = () => {
         openHomePage();
       })
       .catch((error) => {
-        alert(error.message);
+        setError(true)
       });
   }
   
@@ -73,14 +82,21 @@ const Login = () => {
               value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
-            <input
-              type="password"
+
+          <input
+              type={state ? "text" : "password"}
               placeholder="Password"
               className="loginInput"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               onKeyDown={handleKeyDown}
             />
+          <button className="eye" onClick={togleBtn}>
+            {state ? <VisibilityOffIcon/> : <VisibilityIcon/> }
+          </button>
+
+            
+
             <button
               className="loginButton"
               type="button"
@@ -88,6 +104,14 @@ const Login = () => {
             >
               Log In
             </button>
+
+            <div className="alert">
+                { error 
+                    ? <div>Incorrect username or password!</div>
+                    : null
+                }
+            </div>  
+
             <a
               className="loginForgot"
               href="http://localhost:3000/resetPassword"

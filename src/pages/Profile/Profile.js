@@ -6,9 +6,15 @@ import { useParams } from "react-router-dom";
 import Popup from '../../components/popup/Popup';
 import Post from '../../components/post/Post';
 import Feed from '../../components/feed/Feed';
+import { useLocation } from "react-router-dom";
+import {useRef} from 'react';
 
 
-const Profile = () => {
+
+const Profile = (props) => {
+
+  const scrollLocation = useLocation().state;
+
   //params uzima sa urla !
   const params = useParams();
 
@@ -29,6 +35,7 @@ const Profile = () => {
   const [followingNumber, setFollowingNumber] = useState("");
 
   useEffect(() => getUserIdFromJWT(), []) 
+  
 
     function getUserIdFromJWT() {
       fetch("/v1/getUserId", {
@@ -160,7 +167,6 @@ const Profile = () => {
 
 
   function followUser() {
-    console.log("usao sam u followUser funkciju")
     fetch("/v1/followUser?userId="+ params.userId, {
       headers: {
         Authorization: `Bearer ${jwt}`,
@@ -169,7 +175,6 @@ const Profile = () => {
     })
       .then((response) => {
         if (response.status == 200) {
-          console.log("uspjeno followan user")
         } else {
           var error = new Error(
             "Error " + response.status + ": " + response.statusText
@@ -193,7 +198,6 @@ const Profile = () => {
     })
       .then((response) => {
         if (response.status == 200) {
-          console.log("user uspjesno unfollowan")
         } else {
           var error = new Error(
             "Error " + response.status + ": " + response.statusText
@@ -297,9 +301,21 @@ const Profile = () => {
     const userClick = event => {
       window.location.href = "/profile/" + event.currentTarget.id;
     };
+
+    useEffect(() => scrollTo(), [])
    
+    function scrollTo(){
+      if(scrollLocation !== null){
+        //timeout dok se ucita Feed component
+        setTimeout(function(){
+          console.log(scrollLocation.postId)
+          document.getElementById(4).scrollIntoView({behavior: 'smooth'})
+         }, 500);
+        
+      }
+    }
+
   return (
-    
     <div>
       <Topbar/>
     <div className="images">
