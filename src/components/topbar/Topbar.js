@@ -1,15 +1,11 @@
-import {React, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useLocalState } from "../../util/useLocalStorage";
-import { useParams } from 'react-router-dom';
-
 import Badge from '@mui/material/Badge';
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
-
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import PasswordIcon from '@mui/icons-material/Password';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Search from '@mui/icons-material/Search';

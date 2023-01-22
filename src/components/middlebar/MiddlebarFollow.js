@@ -1,5 +1,4 @@
-import {React, useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
 import { useLocalState } from "../../util/useLocalStorage";
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 

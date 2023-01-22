@@ -1,13 +1,11 @@
-import {React, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./profile.css";
 import Topbar from "../../components/topbar/Topbar";
 import { useLocalState } from "../../util/useLocalStorage";
 import { useParams } from "react-router-dom";
 import Popup from '../../components/popup/Popup';
-import Post from '../../components/post/Post';
 import Feed from '../../components/feed/Feed';
 import { useLocation } from "react-router-dom";
-import {useRef} from 'react';
 
 
 

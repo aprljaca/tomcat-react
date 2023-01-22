@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MiddlebarComment from '../../components/middlebar/MiddlebarComment';
 import MiddlebarFollow from '../../components/middlebar/MiddlebarFollow';
 import MiddlebarLike from '../../components/middlebar/MiddlebarLike';

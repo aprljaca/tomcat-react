@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./post.css";
 import { useParams } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";

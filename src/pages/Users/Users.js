@@ -1,7 +1,6 @@
-import {React, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Topbar from '../../components/topbar/Topbar';
-import { useLocalState } from "../../util/useLocalStorage";
 import "./users.css";
 
 const Users = () => {

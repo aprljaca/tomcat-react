@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useLocalState } from "../../util/useLocalStorage";
 import CommentIcon from '@mui/icons-material/Comment';

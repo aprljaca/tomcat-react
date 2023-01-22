@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useLocalState } from "../../util/useLocalStorage";
 import Topbar from "../../components/topbar/Topbar";
 import "./home.css";
