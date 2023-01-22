@@ -9,7 +9,6 @@ import SavePassword from "./pages/SavePassword/SavePassword";
 import Profile from "./pages/Profile/Profile";
 import Settings from "./pages/Settings/Settings";
 import UploadImage from "./pages/UploadImage/UploadImage";
-import Test from "./pages/Test/Test";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import Notification from "./pages/Notification/Notification";
 import Users from "./pages/Users/Users";
@@ -34,7 +33,6 @@ function App() {
       <Route path="/resetPassword" element={<ResetPassword />} />
       <Route path="/changePassword" element={<ChangePassword />} />
       <Route path="/notification" element={<Notification />} />
-      <Route path="/test" element={<Test />} />
       <Route path="/users" element={<Users/>} />
     </Routes>
   );
