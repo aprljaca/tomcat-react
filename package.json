@@ -2,7 +2,7 @@
   "name": "tomcat-react-v2",
   "version": "0.1.0",
   "proxy": "http://164.90.230.226:8080/api/",
-  "homepage": "http://localhost:3000/home",
+  "homepage": "http://164.90.230.226:3000/home",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
