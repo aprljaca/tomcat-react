@@ -71,13 +71,12 @@ const Notification = () => {
         setUnreadFollowList(body.unreadFollowList)
         setUnreadCommentList(body.unreadCommentList)
         setUnreadLikeList(body.unreadLikeList)
-        //restNotificationNumber();
         setTimeout(function(){
           restNotificationNumber()
          }, 500);
     })
     .catch((error) => {
-      alert(error.message);
+      //alert(error.message);
     });
   }
 
@@ -102,8 +101,7 @@ const Notification = () => {
         //redirectToNotification();
       })
       .catch((error) => {
-        console.log(error.message);
-        alert(error.message);
+        //alert(error.message);
       });
   }
   

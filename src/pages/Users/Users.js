@@ -32,8 +32,7 @@ const Users = () => {
                 console.log(body)
             })
             .catch((error) => {
-              console.log("ovdje")
-              alert(error.message);
+              //alert(error.message);
             });
 
       }, [inputValue]);
